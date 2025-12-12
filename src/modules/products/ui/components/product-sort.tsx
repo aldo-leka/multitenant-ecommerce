@@ -40,7 +40,7 @@ export const ProductSort = () => {
                 variant="secondary"
                 onClick={() => setFilters({ sort: "hot_and_new" })}
             >
-                Hote & New
+                Hot & New
             </Button>
         </div>
     );
