@@ -1,13 +1,15 @@
+import { generateTenantURL } from "@/lib/utils";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
     id: string;
     name: string;
     imageUrl?: string | null;
-    authorUsername: string;
-    authorImageUrl?: string | null;
+    tenantSlug: string;
+    tenantImageUrl?: string | null;
     reviewRating: number;
     reviewCount: number;
     price: number;
@@ -17,12 +19,21 @@ export const ProductCard = ({
     id,
     name,
     imageUrl,
-    authorUsername,
-    authorImageUrl,
+    tenantSlug,
+    tenantImageUrl,
     reviewRating,
     reviewCount,
     price,
 }: ProductCardProps) => {
+    const router = useRouter();
+
+    const handleUserClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        router.push(generateTenantURL(tenantSlug));
+    }
+
     return (
         <Link
             href={`/products/${id}`}
@@ -42,19 +53,19 @@ export const ProductCard = ({
                     </h2>
                     <div
                         className="flex items-center gap-2"
-                        onClick={() => { }}
+                        onClick={handleUserClick}
                     >
-                        {authorImageUrl && (
+                        {tenantImageUrl && (
                             <Image
-                                alt={authorUsername}
-                                src={authorImageUrl}
+                                alt={tenantSlug}
+                                src={tenantImageUrl}
                                 width={16}
                                 height={16}
                                 className="rounded-full border shrink-0 size-4"
                             />
                         )}
                         <p className="text-sm underline font-medium">
-                            {authorUsername}
+                            {tenantSlug}
                         </p>
                     </div>
                     {reviewCount > 0 && (
