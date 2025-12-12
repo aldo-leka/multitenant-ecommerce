@@ -109,4 +109,4 @@ export const CategoriesSidebar = ({
             </SheetContent>
         </Sheet>
     )
-}
+};
